@@ -21,11 +21,14 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+
         flightTime = maxFlightTime;
 
         speed = MaxSpeed;
 
         rb = GetComponent<Rigidbody>();
+
+        //rb.AddRelativeForce(0, 0, speed * 100f, ForceMode.Impulse);
     }
 
     void GetInputs()
@@ -54,10 +57,9 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector3.up * 9.81f * (0.75f + flightTimePercentage/4));
 
 
-        transform.Translate(0, 0, speed);
+        //transform.Translate(0, 0, speed);
 
-        //rb.AddRelativeForce(0, 0, speed * 100);
-
+        rb.AddRelativeForce(0, 0, speed * 100);
 
         //rotation
         rb.AddTorque(transform.forward * roll * responsiveness * rollConstant);
