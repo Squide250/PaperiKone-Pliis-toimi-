@@ -17,7 +17,11 @@ public class PlayerController : MonoBehaviour
 
     public float flightTimePercentage;
 
+    public float sprintSpeed;
+
     public float speed;
+
+    //public ParticleSystem speedParticles;   
 
     void Start()
     {
@@ -27,8 +31,6 @@ public class PlayerController : MonoBehaviour
         speed = MaxSpeed;
 
         rb = GetComponent<Rigidbody>();
-
-        //rb.AddRelativeForce(0, 0, speed * 100f, ForceMode.Impulse);
     }
 
     void GetInputs()
@@ -39,6 +41,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
+        //var emission = speedParticles.emission;
+        //emission.rateOverTime = ((speed - MaxSpeed)/(sprintSpeed-MaxSpeed)+0.1f) * 100f;
+
         if(flightTime > 0)
         {
             flightTime -= Time.deltaTime;
@@ -46,22 +52,36 @@ public class PlayerController : MonoBehaviour
 
         flightTimePercentage = flightTime / maxFlightTime;
 
-        speed = MaxSpeed * flightTimePercentage;
+        //speed = MaxSpeed * flightTimePercentage;
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            speed = sprintSpeed;
+        }
 
         GetInputs();
+
+        if (speed > MaxSpeed)
+        {
+            speed -= 0.1f * Time.deltaTime;
+        }
+        if (speed < MaxSpeed)
+        {
+            speed = MaxSpeed;
+        }
     }
 
     private void FixedUpdate()
     {
 
-        rb.AddForce(Vector3.up * 9.81f * (0.75f + flightTimePercentage/4));
+        //rb.AddForce(Vector3.up * 9.81f * (0.75f + flightTimePercentage/4));
 
 
-        //transform.Translate(0, 0, speed);
+        transform.Translate(0, 0, speed);
 
-        rb.AddRelativeForce(0, 0, speed * 100);
+        //rb.AddRelativeForce(0, 0, speed * 100);
 
-        //rotation
+
         rb.AddTorque(transform.forward * roll * responsiveness * rollConstant);
         rb.AddTorque(transform.right * pitch * responsiveness);
 
