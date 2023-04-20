@@ -10,14 +10,17 @@ public class PointScript : MonoBehaviour
 
     public float points;
     float desiredPoints;
-    public TextMeshProUGUI scoreNum;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI scoreTextShadow;
+    public float scoreDelay;
 
 
     private void Start()
     {
         points = 0f;
 
-        scoreNum.text = points.ToString();
+        scoreText.text = "SCORE: " + points.ToString();
+        scoreTextShadow.text = "SCORE: " + points.ToString();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,7 +29,6 @@ public class PointScript : MonoBehaviour
         {
             StartCoroutine(AddScore());
         }
-
 
     }
 
@@ -42,8 +44,9 @@ public class PointScript : MonoBehaviour
                 points -= (points - desiredPoints);
             }
 
-            scoreNum.text = points.ToString();
-            yield return new WaitForEndOfFrame();
+            scoreText.text = "SCORE: " + points.ToString();
+            scoreTextShadow.text = "SCORE: " + points.ToString();
+            yield return new WaitForSeconds(scoreDelay);
         }
     }
 
