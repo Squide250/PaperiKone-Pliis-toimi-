@@ -9,13 +9,7 @@ public class PlayerController : MonoBehaviour
     float roll;
     float pitch;
     public float responsiveness;
-    float lift;
     public float rollConstant;
-
-    public float maxFlightTime;
-    float flightTime;
-
-    public float flightTimePercentage;
 
     public float sprintSpeed;
 
@@ -25,9 +19,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
-        flightTime = maxFlightTime;
-
         speed = MaxSpeed;
 
         rb = GetComponent<Rigidbody>();
@@ -43,16 +34,8 @@ public class PlayerController : MonoBehaviour
     {
 
         //var emission = speedParticles.emission;
+
         //emission.rateOverTime = ((speed - MaxSpeed)/(sprintSpeed-MaxSpeed)+0.1f) * 100f;
-
-        if(flightTime > 0)
-        {
-            flightTime -= Time.deltaTime;
-        }
-
-        flightTimePercentage = flightTime / maxFlightTime;
-
-        //speed = MaxSpeed * flightTimePercentage;
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -74,16 +57,21 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
 
-        //rb.AddForce(Vector3.up * 9.81f * (0.75f + flightTimePercentage/4));
-
-
         transform.Translate(0, 0, speed);
 
-        //rb.AddRelativeForce(0, 0, speed * 100);
+        float rollAngle = roll * responsiveness * rollConstant;
+        float pitchAngle = pitch * responsiveness;
 
 
-        rb.AddTorque(transform.forward * roll * responsiveness * rollConstant);
-        rb.AddTorque(transform.right * pitch * responsiveness);
+        //Vector3 targetRotation = new Vector3(pitchAngle, 0, rollAngle);
 
+        //transform.Rotate(Vector3.Lerp(transform.rotation.eulerAngles, targetRotation, rotationSmoothness));
+
+
+        //Vector3 pitchAngleSmoothed = Vector3.Lerp(currentPitch, new Vector3(pitchAngle, 0 , 0), rotationSmoothness);
+        //Vector3 rollAngleSmoothed = Vector3.Lerp(currentPitch, new Vector3(0, 0, rollAngle), rotationSmoothness);
+
+        transform.Rotate(Vector3.forward, rollAngle);
+        transform.Rotate(Vector3.right, pitchAngle);
     }
 }
