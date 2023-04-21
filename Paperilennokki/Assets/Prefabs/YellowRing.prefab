@@ -4920,8 +4920,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8955709646641638183}
   m_Layer: 0
-  m_Name: Ring
-  m_TagString: Untagged
+  m_Name: YellowRing
+  m_TagString: YellowRing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

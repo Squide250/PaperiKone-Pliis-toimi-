@@ -14,6 +14,10 @@ public class PointScript : MonoBehaviour
     public TextMeshProUGUI scoreTextShadow;
     public float scoreDelay;
 
+    public GameObject addYellowScore;
+    public GameObject addGreenScore;
+    public GameObject addRedScore;
+
 
     private void Start()
     {
@@ -25,16 +29,24 @@ public class PointScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if( other.tag == "Ring")
+        if( other.tag == "GreenRing")
         {
-            StartCoroutine(AddScore());
+            StartCoroutine(AddScore(50f));
+            Instantiate(addGreenScore);
         }
-
+        if (other.tag == "YellowRing")
+        {
+            StartCoroutine(AddScore(100f));
+        }
+        if (other.tag == "RedRing")
+        {
+            StartCoroutine(AddScore(200f));
+        }
     }
 
-    IEnumerator AddScore()
+    IEnumerator AddScore(float score)
     {
-        desiredPoints += 100f;
+        desiredPoints += score;
 
         while (points < desiredPoints)
         {

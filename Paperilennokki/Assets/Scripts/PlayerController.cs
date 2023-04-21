@@ -6,13 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     public float MaxSpeed;
     Rigidbody rb;
-    [Header("Turning")]
+
     public float responsiveness;
     public float rollConstant;
     public float rollSpeed = 0.5f;
     public float pitchSpeed = 0.5f;
 
-    public float AngularRotationMultiplier;
+    //public float AngularRotationMultiplier;
 
     public Transform planeGraphics;
 
@@ -23,11 +23,12 @@ public class PlayerController : MonoBehaviour
 
     public float speed;
 
-    [Header("Monitoring values")]
-
     public float roll;
     public float pitch;
     public float yaw;
+
+
+    public float lerpFactor;
 
 
     //public ParticleSystem speedParticles;   
@@ -93,14 +94,13 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.right, pitchAngle);
         transform.Rotate(Vector3.up, yawAngle);
 
-        Quaternion graphicsRotation = planeGraphics.rotation;
+        //Quaternion graphicsRotation = planeGraphics.rotation;
 
-        // Convert angular velocity from world space to local space
-        Vector3 localAngularVelocity = transform.InverseTransformDirection(rb.angularVelocity);
-        graphicsRotation.z = localAngularVelocity.y * AngularRotationMultiplier;
+        //Vector3 localAngularVelocity = transform.InverseTransformDirection(rb.angularVelocity);
+        //graphicsRotation.z = localAngularVelocity.y * AngularRotationMultiplier;
 
 
-        planeGraphics.Rotate(Vector3.forward, graphicsRotation.z, Space.Self);
+        //planeGraphics.Rotate(Vector3.forward, graphicsRotation.z, Space.Self);
 
 
     }
