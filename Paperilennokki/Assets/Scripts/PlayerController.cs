@@ -6,19 +6,37 @@ public class PlayerController : MonoBehaviour
 {
     public float MaxSpeed;
     Rigidbody rb;
-    float roll;
-    float pitch;
+    [Header("Turning")]
     public float responsiveness;
     public float rollConstant;
+    public float rollSpeed = 0.5f;
+    public float pitchSpeed = 0.5f;
+
+    public float AngularRotationMultiplier;
+
+    public Transform planeGraphics;
+
+    public float inputDelay = 0.01f;
+    public float inputIncrement = 0.1f;
 
     public float sprintSpeed;
 
     public float speed;
 
+    [Header("Monitoring values")]
+
+    public float roll;
+    public float pitch;
+    public float yaw;
+
+
     //public ParticleSystem speedParticles;   
 
     void Start()
     {
+
+        Cursor.lockState = CursorLockMode.Locked;
+
         speed = MaxSpeed;
 
         rb = GetComponent<Rigidbody>();
@@ -26,8 +44,15 @@ public class PlayerController : MonoBehaviour
 
     void GetInputs()
     {
-        roll = -Input.GetAxis("Horizontal");
-        pitch = -Input.GetAxis("Vertical");
+        //roll = -Input.GetAxis("Horizontal");
+        //pitch = -Input.GetAxis("Vertical");
+        //yaw = Input.GetAxis("Yaw");
+
+
+        //roll = -Input.GetAxis("");
+        pitch = -Input.GetAxis("Mouse Y");
+        yaw = Input.GetAxis("Mouse X");
+
     }
 
     void Update()
@@ -61,17 +86,23 @@ public class PlayerController : MonoBehaviour
 
         float rollAngle = roll * responsiveness * rollConstant;
         float pitchAngle = pitch * responsiveness;
+        float yawAngle = yaw * responsiveness;
 
-
-        //Vector3 targetRotation = new Vector3(pitchAngle, 0, rollAngle);
-
-        //transform.Rotate(Vector3.Lerp(transform.rotation.eulerAngles, targetRotation, rotationSmoothness));
-
-
-        //Vector3 pitchAngleSmoothed = Vector3.Lerp(currentPitch, new Vector3(pitchAngle, 0 , 0), rotationSmoothness);
-        //Vector3 rollAngleSmoothed = Vector3.Lerp(currentPitch, new Vector3(0, 0, rollAngle), rotationSmoothness);
 
         transform.Rotate(Vector3.forward, rollAngle);
         transform.Rotate(Vector3.right, pitchAngle);
+        transform.Rotate(Vector3.up, yawAngle);
+
+        Quaternion graphicsRotation = planeGraphics.rotation;
+
+        // Convert angular velocity from world space to local space
+        Vector3 localAngularVelocity = transform.InverseTransformDirection(rb.angularVelocity);
+        graphicsRotation.z = localAngularVelocity.y * AngularRotationMultiplier;
+
+
+        planeGraphics.Rotate(Vector3.forward, graphicsRotation.z, Space.Self);
+
+
     }
+
 }
