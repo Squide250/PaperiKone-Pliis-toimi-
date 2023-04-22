@@ -18,6 +18,8 @@ public class PointScript : MonoBehaviour
     public GameObject addGreenScore;
     public GameObject addRedScore;
 
+    public Transform canvas;
+
 
     private void Start()
     {
@@ -32,15 +34,19 @@ public class PointScript : MonoBehaviour
         if( other.tag == "GreenRing")
         {
             StartCoroutine(AddScore(50f));
-            Instantiate(addGreenScore);
+            StartCoroutine(InstantiatePoints("green"));
+
         }
         if (other.tag == "YellowRing")
         {
             StartCoroutine(AddScore(100f));
+            StartCoroutine(InstantiatePoints("yellow"));
+
         }
         if (other.tag == "RedRing")
         {
             StartCoroutine(AddScore(200f));
+            StartCoroutine(InstantiatePoints("red"));
         }
     }
 
@@ -62,6 +68,35 @@ public class PointScript : MonoBehaviour
         }
     }
 
+    IEnumerator InstantiatePoints(string color)
+    {
+        GameObject instantiated = null;
 
+        if (color == "green")
+        {
+            instantiated = Instantiate(addGreenScore, canvas);
+        }
+        else if (color == "yellow")
+        {
+            instantiated =  Instantiate(addYellowScore, canvas);
+        }
+        else if (color == "red")
+        {
+            instantiated = Instantiate(addRedScore, canvas);
+        }
+
+        for (int i = 0; i < 100; i++)
+        {
+            instantiated.transform.localScale -= new Vector3(0.5f, 0.5f, 0.5f);
+            yield return new WaitForSeconds(0.05f);
+
+            if(i == 100 || instantiated.transform.localScale.x <= 0f)
+            {
+                Destroy(instantiated);
+                yield return null;
+                break;
+            }
+        }
+    }
 
 }

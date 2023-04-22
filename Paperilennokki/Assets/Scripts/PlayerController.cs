@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public float rollSpeed = 0.5f;
     public float pitchSpeed = 0.5f;
 
-    //public float AngularRotationMultiplier;
+    public float ZRotationFixer;
 
     public Transform planeGraphics;
 
@@ -82,6 +82,14 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        float currentRotationX = transform.rotation.eulerAngles.x;
+        float currentRotationY = transform.rotation.eulerAngles.y;
+
+        Quaternion targetRotation = Quaternion.Euler(currentRotationX, currentRotationY, 0);
+
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, ZRotationFixer);
+
 
         transform.Translate(0, 0, speed);
 
