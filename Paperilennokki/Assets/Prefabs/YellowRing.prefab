@@ -4826,7 +4826,7 @@ GameObject:
   - component: {fileID: 8955709646054249708}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Ring
+  m_TagString: YellowRing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

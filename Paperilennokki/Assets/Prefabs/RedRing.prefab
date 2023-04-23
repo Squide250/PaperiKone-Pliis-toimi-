@@ -19,6 +19,10 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.key0.g
       value: 0.00968576
       objectReference: {fileID: 0}
+    - target: {fileID: 8955709646054249706, guid: 69d5e0d313b74764da90dbad0fa0e943, type: 3}
+      propertyPath: m_TagString
+      value: RedRing
+      objectReference: {fileID: 0}
     - target: {fileID: 8955709646054249709, guid: 69d5e0d313b74764da90dbad0fa0e943, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -49,15 +53,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8955709646641638183, guid: 69d5e0d313b74764da90dbad0fa0e943, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.18
+      value: 72.247826
       objectReference: {fileID: 0}
     - target: {fileID: 8955709646641638183, guid: 69d5e0d313b74764da90dbad0fa0e943, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.97
+      value: -10.253713
       objectReference: {fileID: 0}
     - target: {fileID: 8955709646641638183, guid: 69d5e0d313b74764da90dbad0fa0e943, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 55.1
+      value: -83.23885
       objectReference: {fileID: 0}
     - target: {fileID: 8955709646641638183, guid: 69d5e0d313b74764da90dbad0fa0e943, type: 3}
       propertyPath: m_LocalRotation.w
