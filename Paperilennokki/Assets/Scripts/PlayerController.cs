@@ -36,8 +36,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
 
-        Cursor.lockState = CursorLockMode.Locked;
-
         speed = MaxSpeed;
 
         rb = GetComponent<Rigidbody>();
