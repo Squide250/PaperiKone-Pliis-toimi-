@@ -29,28 +29,28 @@ public class PointScript : MonoBehaviour
         scoreTextShadow.text = "SCORE: " + points.ToString();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void ringToCoroutine(string color)
     {
-        if( other.tag == "GreenRing")
+        if (color == "green")
         {
             StartCoroutine(AddScore(50f));
             StartCoroutine(InstantiatePoints("green"));
 
         }
-        if (other.tag == "YellowRing")
+        if (color == "yellow")
         {
             StartCoroutine(AddScore(100f));
             StartCoroutine(InstantiatePoints("yellow"));
 
         }
-        if (other.tag == "RedRing")
+        if (color == "red")
         {
             StartCoroutine(AddScore(200f));
             StartCoroutine(InstantiatePoints("red"));
         }
     }
 
-    IEnumerator AddScore(float score)
+    public IEnumerator AddScore(float score)
     {
         desiredPoints += score;
 
@@ -68,7 +68,7 @@ public class PointScript : MonoBehaviour
         }
     }
 
-    IEnumerator InstantiatePoints(string color)
+    public IEnumerator InstantiatePoints(string color)
     {
         GameObject instantiated = null;
 

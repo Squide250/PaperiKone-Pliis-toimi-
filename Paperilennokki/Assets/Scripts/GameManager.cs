@@ -5,11 +5,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     bool paused;
+    public float sensitivity;
 
     public GameObject PauseMenu;
 
     void Start()
     {
+        sensitivity = PlayerPrefs.GetFloat("Sensitivity");
         paused = false;
         PauseMenu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
@@ -41,6 +43,12 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
 
+    }
+    
+    void UpdatePrefs()
+    {
+        PlayerPrefs.SetFloat("Sensitivity", sensitivity);
+        PlayerPrefs.Save();
     }
 
 }
