@@ -1,19 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     bool paused;
     public float sensitivity;
 
+    bool ended = false;
+
+    public GameObject endObj;
+
+    public float gameTime;
+
+    public TextMeshProUGUI textjokutimer;
+    public TextMeshProUGUI textjokutimer2;
+
+    public float curTime;
+
     public GameObject PauseMenu;
 
-    void Start()
+    void Awake()
     {
-        sensitivity = PlayerPrefs.GetFloat("Sensitivity");
+        ended = false;
+
+        curTime = gameTime;
+        StartCoroutine(timerGame());
+
         paused = false;
         PauseMenu.SetActive(false);
+        endObj.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -23,19 +40,27 @@ public class GameManager : MonoBehaviour
         {
             Pause();
         }
+
+        if(curTime <= 0f)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0f;
+            ended = true;
+            endObj.SetActive(true);
+        }
     }
 
 
     public void Pause()
     {
-        if (paused)
+        if (paused && !ended)
         {
             PauseMenu.SetActive(false);
             paused = false;
             Time.timeScale = 1f;
             Cursor.lockState = CursorLockMode.Locked;
         }
-        else
+        else if(!paused && !ended)
         {
             PauseMenu.SetActive(true);
             paused = true;
@@ -44,11 +69,17 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    
-    void UpdatePrefs()
+  
+    public IEnumerator timerGame()
     {
-        PlayerPrefs.SetFloat("Sensitivity", sensitivity);
-        PlayerPrefs.Save();
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            curTime -= 1f;
+            textjokutimer.text = "TIME: " + curTime.ToString();
+            textjokutimer2.text = "TIME: " + curTime.ToString();
+        }
     }
+
 
 }

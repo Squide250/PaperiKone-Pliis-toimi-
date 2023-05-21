@@ -8,11 +8,16 @@ public class PointScript : MonoBehaviour
 {
     public float pointIncrement;
 
+    public AudioSource clipper;
+
     public float points;
     float desiredPoints;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI scoreTextShadow;
     public float scoreDelay;
+
+    public TextMeshProUGUI scoreText1;
+    public TextMeshProUGUI scoreTextShadow2;
 
     public GameObject addYellowScore;
     public GameObject addGreenScore;
@@ -52,6 +57,8 @@ public class PointScript : MonoBehaviour
 
     public IEnumerator AddScore(float score)
     {
+
+        clipper.Play();
         desiredPoints += score;
 
         while (points < desiredPoints)
@@ -64,6 +71,10 @@ public class PointScript : MonoBehaviour
 
             scoreText.text = "SCORE: " + points.ToString();
             scoreTextShadow.text = "SCORE: " + points.ToString();
+
+            scoreText1.text = "SCORE: " + points.ToString();
+            scoreTextShadow2.text = "SCORE: " + points.ToString();
+
             yield return new WaitForSeconds(scoreDelay);
         }
     }
